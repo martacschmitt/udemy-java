@@ -27,6 +27,7 @@ public class Exercicio {
 
 				File path = new File(rootPath + "\\out");
 				
+				
 				if (!path.exists()) {
 					new File(path.getPath()).mkdir();
 				}
