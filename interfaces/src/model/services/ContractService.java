@@ -25,7 +25,9 @@ public class ContractService {
 			LocalDate date = contract.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 			Date dueDate = Date.from(date.plusMonths(cont).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());			
 		
-			double value = paymentService.calculate(contract.getTotalValue() / numberOfInstallments, cont);
+			double value = contract.getTotalValue() / numberOfInstallments;
+			value += paymentService.interest(value, cont);
+			value += paymentService.paymentFee(value);
 			
 			Installment installment = new Installment(dueDate, value);
 			contract.getInstallments().add(installment);

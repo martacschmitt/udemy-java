@@ -2,6 +2,7 @@ package model.services;
 
 public interface PaymentService {
 
-	double calculate(double amount, int number);
+	double paymentFee(double amount);
+	double interest(double amount, int number);
 	
 }
