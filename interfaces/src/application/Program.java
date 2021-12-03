@@ -1,28 +1,29 @@
 package application;
 
-import model.entities.ComboDevice;
-import model.entities.ConcretePrinter;
-import model.entities.ConcreteScanner;
+import java.util.Locale;
+import java.util.Scanner;
+
+import model.services.BrazilInterestService;
+import model.services.InterestService;
 
 public class Program {
-
+	
 	public static void main(String[] args) {
 		
-		ConcretePrinter p = new ConcretePrinter("1080");
-		p.processDoc("My letter");
-		p.print("My letter");
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Amount: ");
+		double amount = sc.nextDouble();
+		System.out.print("Months: ");
+		int months = sc.nextInt();
 		
-		System.out.println();
-		ConcreteScanner s = new ConcreteScanner("2003");
-		s.processDoc("My email");
-		System.out.println("Scan result: " + s.scan());
+		InterestService is = new BrazilInterestService(2.0);
+		double payment = is.payment(amount, months);
 		
-		System.out.println();
-		ComboDevice c = new ComboDevice("2081");
-		c.processDoc("My dissertation");
-		c.print("My dissertation");
-		System.out.println("Scan result: " + c.scan());
+		System.out.println("Payment after " + months + " months:");
+		System.out.println(String.format("%.2f", payment));
 		
+		sc.close();
 	}
 	
 }
