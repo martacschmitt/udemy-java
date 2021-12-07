@@ -1,30 +1,41 @@
 package application;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-import services.PrintService;
+import entities.Product;
+import services.CalculationService;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Scanner sc = new Scanner(System.in);
+		Locale.setDefault(Locale.US);
 		
-		PrintService<String> ps = new PrintService<>();
+		List<Product> list = new ArrayList<>();
 		
-		System.out.print("How many values? ");
-		int n = sc.nextInt();
-		sc.nextLine();
+		String path = "C:\\temp\\in.txt";
 		
-		for (int i = 0; i < n; i++) {
-			String value = sc.nextLine();
-			ps.addValue(value);
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			
+			String line = br.readLine();
+			while (line != null) {
+				String[] fields = line.split(",");
+				list.add(new Product(fields[0], Double.parseDouble(fields[1])));
+				line = br.readLine();
+			}
+			
+			Product x = CalculationService.max(list);
+			System.out.println("Most expensive:");
+			System.out.println(x);
+			
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
 		}
-		
-		ps.print();
-		System.out.println("First: " + ps.first());		
-		
-		sc.close();
 		
 	}
 	
