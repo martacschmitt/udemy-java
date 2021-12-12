@@ -1,22 +1,25 @@
 package application;
 
-import entities.Client;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		Client c1 = new Client("Maria", "maria@gmail.com");
-		Client c2 = new Client("Maria", "maria@gmail.com");
+		// Set<String> set = new HashSet<String>(); // não importa a ordem
+		// Set<String> set = new TreeSet<String>(); // ordena os dados
+		Set<String> set = new LinkedHashSet<String>(); // mantem a ordem em que foi inserido
 		
-		String s1 = "Test";
-		String s2 = "Test";
+		set.add("TV");
+		set.add("Notebook");
+		set.add("Tablet");
 		
-		System.out.println(c1.hashCode());
-		System.out.println(c2.hashCode());
-		System.out.println(c1.equals(c2));
-		System.out.println(c1 == c2);		
-		System.out.println(s1 == s2);
+		set.removeIf(x -> x.charAt(0) == 'T');
+		
+		for (String string : set) {
+			System.out.println(string);
+		}
 		
 	}
 	
