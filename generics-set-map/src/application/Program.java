@@ -1,35 +1,23 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import entities.Client;
 
 public class Program {
 
 	public static void main(String[] args) {
 		
-		List<Integer> myInts = Arrays.asList(1, 2, 3, 4);
-		List<Double> myDoubles = Arrays.asList(3.14, 6.28);
-		List<Object> myObjs = new ArrayList<Object>();
+		Client c1 = new Client("Maria", "maria@gmail.com");
+		Client c2 = new Client("Maria", "maria@gmail.com");
 		
-		copy(myInts, myObjs);
-		printList(myObjs);
-		copy(myDoubles, myObjs);
-		printList(myObjs);
+		String s1 = "Test";
+		String s2 = "Test";
+		
+		System.out.println(c1.hashCode());
+		System.out.println(c2.hashCode());
+		System.out.println(c1.equals(c2));
+		System.out.println(c1 == c2);		
+		System.out.println(s1 == s2);
 		
 	}
 	
-	public static void copy(List<? extends Number> source, List<? super Number> target) {
-		for (Number number : source) {
-			target.add(number);
-		}
-	}
-	
-	public static void printList(List<?> list) {
-		for (Object object : list) {
-			System.out.print(object + " ");
-		}
-		System.out.println();
-	}
-		
 }
