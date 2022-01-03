@@ -1,55 +1,30 @@
 package application;
 
-import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
+		Map<String, String> cookies = new TreeMap<String, String>();
 		
-		System.out.print("How many students for course A? ");
-		int countStudents = sc.nextInt();
+		cookies.put("username", "Maria");
+		cookies.put("email", "maria@gmail.com");
+		cookies.put("phone", "99711122");
 		
-		Set<Integer> setCourseA = new TreeSet<Integer>();
-		while (countStudents > 0) {
-			int studentId = sc.nextInt();
-			setCourseA.add(studentId);
-			sc.nextLine();
-			countStudents--;
+		cookies.remove("email");
+		cookies.put("phone", "99711133");
+		
+		System.out.println("Contains 'phone' key: " + cookies.containsKey("phone"));
+		System.out.println("Phone number: " + cookies.get("phone"));
+		System.out.println("Email: " + cookies.get("email"));
+		System.out.println("Size: " + cookies.size());
+		
+		System.out.println("ALL COOKIES:");
+		for (String key : cookies.keySet()) {
+			System.out.println(key + ": " + cookies.get(key));
 		}
-		
-		System.out.print("How many students for course B? ");
-		countStudents = sc.nextInt();
-		
-		Set<Integer> setCourseB = new TreeSet<Integer>();
-		while (countStudents > 0) {
-			int studentId = sc.nextInt();
-			setCourseB.add(studentId);
-			sc.nextLine();
-			countStudents--;
-		}
-		
-		System.out.print("How many students for course C? ");
-		countStudents = sc.nextInt();
-		
-		Set<Integer> setCourseC = new TreeSet<Integer>();
-		while (countStudents > 0) {
-			int studentId = sc.nextInt();
-			setCourseC.add(studentId);
-			sc.nextLine();
-			countStudents--;
-		}
-		
-		Set<Integer> allStudents = new TreeSet<Integer>(setCourseA);
-		allStudents.addAll(setCourseB);
-		allStudents.addAll(setCourseC);
-		
-		System.out.println("Total students: " + allStudents.size());
-		
-		sc.close();
 
 	}
 
