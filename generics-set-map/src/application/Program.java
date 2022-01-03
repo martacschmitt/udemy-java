@@ -1,27 +1,45 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.HashMap;
 import java.util.Map;
-
-import entities.Product;
+import java.util.Scanner;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Map<Product, Double> stock = new HashMap<>();
+		Scanner sc = new Scanner(System.in);
 		
-		Product p1 = new Product("TV", 900.0);
-		Product p2 = new Product("Notebook", 1200.0);
-		Product p3 = new Product("Tablet", 400.0);
+		System.out.print("Enter file full path: ");
+		String path = sc.nextLine();
 		
-		stock.put(p1, 10000.0);
-		stock.put(p2, 20000.0);
-		stock.put(p3, 15000.0);
+		Map<String, Integer> mapVotes = new HashMap<String, Integer>();
 		
-		Product ps = new Product("TV", 900.0);
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String line = br.readLine();
+			while (line != null) {
+				String[] fields = line.split(",");
+				int votesAmount = Integer.parseInt(fields[1]);
+				
+				if (mapVotes.containsKey(fields[0])) {
+					votesAmount += mapVotes.get(fields[0]);
+				}
+				
+				mapVotes.put(fields[0], votesAmount);
+				
+				line = br.readLine();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
 		
-		System.out.println("Contains 'ps' key: " + stock.containsKey(ps));
+		for (String key : mapVotes.keySet()) {
+			System.out.println(key + ": " + mapVotes.get(key));
+		}
+		
+		sc.close();
 
 	}
 
