@@ -1,45 +1,56 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.time.Instant;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-
-import entities.LogEntry;
+import java.util.TreeSet;
 
 public class Program {
 
 	public static void main(String[] args) {
-		
+
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.print("Enter file full path: ");
-		String path = sc.nextLine();
+		System.out.print("How many students for course A? ");
+		int countStudents = sc.nextInt();
 		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			
-			Set<LogEntry> set = new HashSet<LogEntry>();
-			
-			String line = br.readLine();
-			while (line != null) {
-				String[] fields = line.split(" ");
-				
-				set.add(new LogEntry(fields[0], Date.from(Instant.parse(fields[1]))));
-				
-				line = br.readLine();
-			}
-			System.out.println("Total users: " + set.size());
-			
-		} catch (IOException e) {
-			System.out.println("Error: " + e.getMessage());
+		Set<Integer> setCourseA = new TreeSet<Integer>();
+		while (countStudents > 0) {
+			int studentId = sc.nextInt();
+			setCourseA.add(studentId);
+			sc.nextLine();
+			countStudents--;
 		}
 		
-		sc.close();
+		System.out.print("How many students for course B? ");
+		countStudents = sc.nextInt();
 		
+		Set<Integer> setCourseB = new TreeSet<Integer>();
+		while (countStudents > 0) {
+			int studentId = sc.nextInt();
+			setCourseB.add(studentId);
+			sc.nextLine();
+			countStudents--;
+		}
+		
+		System.out.print("How many students for course C? ");
+		countStudents = sc.nextInt();
+		
+		Set<Integer> setCourseC = new TreeSet<Integer>();
+		while (countStudents > 0) {
+			int studentId = sc.nextInt();
+			setCourseC.add(studentId);
+			sc.nextLine();
+			countStudents--;
+		}
+		
+		Set<Integer> allStudents = new TreeSet<Integer>(setCourseA);
+		allStudents.addAll(setCourseB);
+		allStudents.addAll(setCourseC);
+		
+		System.out.println("Total students: " + allStudents.size());
+		
+		sc.close();
+
 	}
-	
+
 }
