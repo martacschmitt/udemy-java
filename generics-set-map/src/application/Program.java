@@ -1,45 +1,25 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+import entities.Product;
 
 public class Program {
 
 	public static void main(String[] args) {
 
-		Scanner sc = new Scanner(System.in);
+		List<Product> list = new ArrayList<>();
 		
-		System.out.print("Enter file full path: ");
-		String path = sc.nextLine();
+		list.add(new Product("TV", 900.00));
+		list.add(new Product("Notebook", 1200.00));
+		list.add(new Product("Tablet", 450.00));
+						
+		list.sort((p1, p2) -> p1.getName().toUpperCase().compareTo(p2.getName().toUpperCase()));
 		
-		Map<String, Integer> mapVotes = new HashMap<String, Integer>();
-		
-		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-			String line = br.readLine();
-			while (line != null) {
-				String[] fields = line.split(",");
-				int votesAmount = Integer.parseInt(fields[1]);
-				
-				if (mapVotes.containsKey(fields[0])) {
-					votesAmount += mapVotes.get(fields[0]);
-				}
-				
-				mapVotes.put(fields[0], votesAmount);
-				
-				line = br.readLine();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}		
-		
-		for (String key : mapVotes.keySet()) {
-			System.out.println(key + ": " + mapVotes.get(key));
+		for (Product product : list) {
+			System.out.println(product);
 		}
-		
-		sc.close();
 
 	}
 
