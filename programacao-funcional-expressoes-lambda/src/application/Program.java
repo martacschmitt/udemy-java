@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.function.Predicate;
 
 import entities.Product;
+import util.PriceUpdate;
 
 public class Program {
 	
@@ -19,13 +20,9 @@ public class Program {
 		list.add(new Product("Tablet", 350.50));
 		list.add(new Product("HD Case", 80.90));
 		
-		double min = 100.0;		
+		list.forEach(new PriceUpdate());
 		
-		list.removeIf(p -> p.getPrice() >= min);
-		
-		for (Product product : list) {
-			System.out.println(product);
-		}
+		list.forEach(System.out::println);
 
 	}
 	
